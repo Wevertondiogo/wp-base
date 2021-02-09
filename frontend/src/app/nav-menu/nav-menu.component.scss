@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: center;
+  .navbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 80%;
+    a {
+      text-decoration: none;
+    }
+    .navbar-brand {
+    }
+    &-list {
+      display: flex;
+      justify-content: space-evenly;
+      width: 80%;
+      .navbar-item {
+        list-style: none;
+        .navbar-link {
+          color: #4e2e55;
+        }
+      }
+    }
+  }
+}
