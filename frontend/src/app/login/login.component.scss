@@ -13,12 +13,13 @@
     justify-content: center;
     flex-direction: column;
 
-    width: 50;
-    height: 50%;
+    width: 55%;
+    height: 55%;
     background-color: #67a7f1;
     border-radius: 9px;
 
     .photo-icon {
+      margin-bottom: 10px;
       .account-circle {
         color: #2f81e5;
         transform: scale(2.2);
@@ -48,6 +49,11 @@
         background-color: #2f81e5;
         color: #fff;
         box-shadow: 1px 1px 3px #000;
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: no-drop;
+        }
       }
     }
   }

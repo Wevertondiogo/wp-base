@@ -1,24 +1,28 @@
 <div class="container">
-    <form class="login mat-elevation-z5">
+    <form class="login mat-elevation-z5" [formGroup]="login" (ngSubmit)="onSubmit()">
         <div class="photo-icon">
             <mat-icon class="account-circle">account_circle</mat-icon>
         </div>
         <div class="form-container">
             <label>Email</label>
             <mat-form-field appearance="outline" class="form-field">
-                <input type="email" matInput placeholder="Digite seu email">
+                <input type="email" matInput placeholder="Digite seu email" formControlName="email">
                 <mat-icon matSuffix class="icons">email</mat-icon>
+                <mat-error *ngIf="requiredEmail">Email é obrigatório.</mat-error>
+                <mat-error *ngIf="invalidEmail">Email incorreto.</mat-error>
             </mat-form-field>
             
             <label>Senha</label>
             <mat-form-field appearance="outline" class="form-field ">
-                <input type="password" matInput placeholder="Digite sua senha">
+                <input type="password" matInput placeholder="Digite sua senha" formControlName="password" maxlength="38"> 
                 <mat-icon matSuffix class="icons">lock</mat-icon>
+                <mat-error *ngIf="requiredPassword">Senha é obrigatório.</mat-error>
+                <mat-error *ngIf="errorMinLength">O minímo de caracteres são 6.</mat-error>
             </mat-form-field>
             <span class="forgot">
                 <a href="#">Esqueceu a senha</a>
             </span>
-            <button type="submit" mat-button class="btn-submit">Login</button>
+            <button type="submit" mat-button class="btn-submit" [disabled]="this.login.invalid">Login</button>
         </div>
 
     </form>
