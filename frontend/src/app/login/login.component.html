@@ -1,18 +1,24 @@
 <div class="container">
     <form class="login mat-elevation-z5">
+        <div class="photo-icon">
+            <mat-icon class="account-circle">account_circle</mat-icon>
+        </div>
         <div class="form-container">
             <label>Email</label>
             <mat-form-field appearance="outline" class="form-field">
-                <input type="email" matInput class="form-control">
+                <input type="email" matInput placeholder="Digite seu email">
                 <mat-icon matSuffix class="icons">email</mat-icon>
             </mat-form-field>
             
             <label>Senha</label>
-            <mat-form-field appearance="outline" class="form-field">
-                <input type="password" matInput class="form-control">
+            <mat-form-field appearance="outline" class="form-field ">
+                <input type="password" matInput placeholder="Digite sua senha">
                 <mat-icon matSuffix class="icons">lock</mat-icon>
-
             </mat-form-field>
+            <span class="forgot">
+                <a href="#">Esqueceu a senha</a>
+            </span>
+            <button type="submit" mat-button class="btn-submit">Login</button>
         </div>
 
     </form>

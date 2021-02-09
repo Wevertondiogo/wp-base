@@ -11,11 +11,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
-    width: 45%;
-    height: 45%;
+    width: 50;
+    height: 50%;
     background-color: #67a7f1;
     border-radius: 9px;
+
+    .photo-icon {
+      .account-circle {
+        color: #2f81e5;
+        transform: scale(2.2);
+      }
+    }
 
     label {
       color: #fff;
@@ -28,6 +36,18 @@
         .icons {
           color: #2f81e5;
         }
+      }
+      .forgot {
+        a {
+          text-decoration: none;
+        }
+      }
+      .btn-submit {
+        margin-top: 7px;
+        width: 100%;
+        background-color: #2f81e5;
+        color: #fff;
+        box-shadow: 1px 1px 3px #000;
       }
     }
   }
