@@ -8,4 +8,30 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  .mat-form-field-outline {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px #000;
+  }
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+    .mat-form-field-flex:hover
+    .mat-form-field-outline {
+    color: transparent;
+  }
+
+  // mat-form-field mat-label {
+  //   color: #6071e5;
+  // }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent;
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-outline-gap,
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-outline-start,
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-outline-end {
+    border-color: transparent !important;
+  }
 }
