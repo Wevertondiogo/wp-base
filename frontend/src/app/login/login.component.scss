@@ -1,7 +1,14 @@
 .container {
   width: 100%;
   height: 100vh;
-  background-color: #2f81e5;
+  // background-color: #2f81e5;
+
+  // background: url(./../../assets/pexels-photo-2531237.jpeg);
+  background: url(./../../assets/pexels-photo-1252869.jpeg);
+  // background: url(./../../assets/pexels-photo-2469122.jpeg);
+  background-size: cover;
+  // background-position: center;
+  // background-repeat: no-repeat;
 
   display: flex;
   justify-content: center;
@@ -13,16 +20,16 @@
     justify-content: center;
     flex-direction: column;
 
-    width: 55%;
-    height: 55%;
-    background-color: #67a7f1;
+    width: 60%;
+    height: 60%;
+    background-color: transparent;
     border-radius: 9px;
 
     .photo-icon {
       margin-bottom: 10px;
       .account-circle {
-        color: #2f81e5;
-        transform: scale(2.2);
+        color: #024764;
+        transform: scale(2.5);
       }
     }
 
@@ -35,18 +42,19 @@
         width: 100%;
 
         .icons {
-          color: #2f81e5;
+          color: #024764;
         }
       }
       .forgot {
         a {
           text-decoration: none;
+          color: #024764;
         }
       }
       .btn-submit {
         margin-top: 7px;
         width: 100%;
-        background-color: #2f81e5;
+        background-color: #024764;
         color: #fff;
         box-shadow: 1px 1px 3px #000;
 
@@ -57,4 +65,7 @@
       }
     }
   }
+}
+::placeholder {
+  color: #0e0e0e;
 }
