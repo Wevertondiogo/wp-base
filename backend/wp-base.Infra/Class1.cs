@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Service
+namespace wp_base.Infra
 {
     public class Class1
     {

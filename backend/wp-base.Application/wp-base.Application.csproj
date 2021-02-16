@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>wp_base.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.3" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="5.0.3" />
+    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="5.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\wp-base.Domain\wp-base.Domain.csproj" />
+    <ProjectReference Include="..\wp-base.Infra\wp-base.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
