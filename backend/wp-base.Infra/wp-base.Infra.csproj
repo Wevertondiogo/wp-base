@@ -7,6 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.sqlserver" Version="5.0.3" />
   </ItemGroup>
 
   <ItemGroup>

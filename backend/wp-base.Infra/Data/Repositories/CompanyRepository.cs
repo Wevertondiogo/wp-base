@@ -9,5 +9,6 @@ namespace wp_base.Infra.Data.Repositories
         private readonly DataContext _context;
 
         public CompanyRepository(DataContext context) : base(context) => _context = context;
+
     }
 }
