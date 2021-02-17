@@ -16,13 +16,23 @@ namespace wp_base.Infra.Data.Repositories
         public virtual void DeleteCompany(TEntity entity) => _context.Remove(entity);
         public virtual async Task<bool> SaveChangesAsync() => (await _context.SaveChangesAsync() > 0);
         public async virtual Task<IEnumerable<TEntity>> GetCompany() => (IEnumerable<TEntity>)await _context.CompanyEntityTest.ToListAsync();
-        public async virtual Task<CompanyEntity> GetByCompany(int? id)
+        public async virtual Task<CompanyEntity> GetCompanyById(int? id)
         {
             IQueryable<CompanyEntity> query = _context.CompanyEntityTest;
 
             query = query.AsNoTracking()
                           .OrderBy(company => company.Id)
                            .Where(company => company.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+        public async virtual Task<CompanyEntity> FetchCompany(string email, string password)
+        {
+            IQueryable<CompanyEntity> query = _context.CompanyEntityTest;
+
+            query = query.AsNoTracking()
+                          .OrderBy(company => company.Id)
+                           .Where(company => company.Email == email && company.Password == password);
 
             return await query.FirstOrDefaultAsync();
         }

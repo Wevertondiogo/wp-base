@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
 
@@ -8,6 +10,8 @@ namespace wp_base.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyRepository _companyRepository;
@@ -15,6 +19,9 @@ namespace wp_base.Application.Controllers
         public CompanyController(ICompanyRepository companyRepository) => _companyRepository = companyRepository;
 
         [HttpGet]
+        [SwaggerResponse(statusCode: 200, description: "Success in request", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
         public async Task<IActionResult> GetCompany()
         {
             try
@@ -28,6 +35,10 @@ namespace wp_base.Application.Controllers
             }
         }
 
+        [SwaggerResponse(statusCode: 201, description: "Company was created with success", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
         [HttpPost("add")]
         public async Task<IActionResult> AddCompany(CompanyEntity company)
         {
@@ -42,13 +53,16 @@ namespace wp_base.Application.Controllers
             }
             return NoContent();
         }
-
+        [SwaggerResponse(statusCode: 200, description: "Success in Update", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateCompany(int? id, CompanyEntity company)
         {
             try
             {
-                var result = await _companyRepository.GetByCompany(id);
+                var result = await _companyRepository.GetCompanyById(id);
                 if (result == null || result.Id != id) return NotFound();
 
                 _companyRepository.UpdateCompany(company);
@@ -60,12 +74,17 @@ namespace wp_base.Application.Controllers
             }
             return NoContent();
         }
+
+        [SwaggerResponse(statusCode: 200, description: "Success in Delete", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCompany(int? id, CompanyEntity company)
         {
             try
             {
-                var result = await _companyRepository.GetByCompany(id);
+                var result = await _companyRepository.GetCompanyById(id);
                 if (result == null || result.Id != id) return NotFound();
 
                 _companyRepository.DeleteCompany(company);

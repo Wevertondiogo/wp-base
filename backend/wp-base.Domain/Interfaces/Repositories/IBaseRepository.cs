@@ -10,6 +10,7 @@ namespace wp_base.Domain.Interfaces.Repositories
         void DeleteCompany(TEntity entity);
         Task<bool> SaveChangesAsync();
         Task<IEnumerable<TEntity>> GetCompany();
-        Task<TEntity> GetByCompany(int? id);
+        Task<TEntity> GetCompanyById(int? id);
+        Task<TEntity> FetchCompany(string email, string password);
     }
 }
