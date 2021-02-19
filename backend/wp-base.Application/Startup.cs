@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using wp_base.Application.Config;
 using wp_base.Domain.Interfaces.Repositories;
@@ -26,6 +27,8 @@ namespace wp_base.Application
 {
     public class Startup
     {
+        private readonly string wpBase = "WP-Base";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -100,6 +103,17 @@ namespace wp_base.Application
                 };
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: wpBase, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyOrigin()
+                            .WithHeaders(HeaderNames.ContentType, "content-type");
+
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,6 +129,7 @@ namespace wp_base.Application
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(wpBase);
 
             app.UseAuthentication();
             app.UseAuthorization();
