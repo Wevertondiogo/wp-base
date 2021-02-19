@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using wp_base.Application.Config;
+using wp_base.Application.Validators;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
 using wp_base.Domain.Models;
@@ -26,6 +27,7 @@ namespace wp_base.Application.Controllers
         [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
         [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
         [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [ValidadeModelStateCustomers]
         public async Task<IActionResult> Auth([FromBody] AuthModel authCompany)
         {
             try

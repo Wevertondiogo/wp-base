@@ -4,13 +4,12 @@ namespace wp_base.Domain.Models
 {
     public class AuthModel
     {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "E-mail in formatt invalid.")]
+        [Required(ErrorMessage = "Email é obrigatório.")]
+        [EmailAddress(ErrorMessage = "Formato de email incorreto.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "password is required")]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Senha é obrigatório.")]
+        [StringLength(100, ErrorMessage = "O minímo de caracteres aceitos são 6", MinimumLength = 6)]
         public string Password { get; set; }
     }
 }

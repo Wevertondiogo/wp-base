@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using wp_base.Application.Validators;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
+using wp_base.Domain.Models.Filters;
 
 namespace wp_base.Application.Controllers
 {
@@ -20,8 +22,9 @@ namespace wp_base.Application.Controllers
 
         [HttpGet]
         [SwaggerResponse(statusCode: 200, description: "Success in request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
+        [ValidadeModelStateCustomers]
         public async Task<IActionResult> GetCompany()
         {
             try
@@ -36,9 +39,10 @@ namespace wp_base.Application.Controllers
         }
 
         [SwaggerResponse(statusCode: 201, description: "Company was created with success", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
+        [ValidadeModelStateCustomers]
         [HttpPost("add")]
         public async Task<IActionResult> AddCompany(CompanyEntity company)
         {
@@ -54,9 +58,10 @@ namespace wp_base.Application.Controllers
             return NoContent();
         }
         [SwaggerResponse(statusCode: 200, description: "Success in Update", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
+        [ValidadeModelStateCustomers]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateCompany(int? id, CompanyEntity company)
         {
@@ -76,9 +81,10 @@ namespace wp_base.Application.Controllers
         }
 
         [SwaggerResponse(statusCode: 200, description: "Success in Delete", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
+        [ValidadeModelStateCustomers]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCompany(int? id, CompanyEntity company)
         {
