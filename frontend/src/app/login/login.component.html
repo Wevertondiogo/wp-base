@@ -39,6 +39,7 @@
                 <mat-icon matSuffix class="icons">email</mat-icon>
                 <mat-error *ngIf="requiredEmail">Email é obrigatório.</mat-error>
                 <mat-error *ngIf="invalidEmail">Email incorreto.</mat-error>
+                <mat-error *ngIf="emailErrorMessageValidation">{{errorMessage}}</mat-error>
             </mat-form-field>
             
             <label>Senha</label>
@@ -47,6 +48,7 @@
                 <mat-icon matSuffix class="icons">lock</mat-icon>
                 <mat-error *ngIf="requiredPassword">Senha é obrigatório.</mat-error>
                 <mat-error *ngIf="errorMinLength">O minímo de caracteres são 6.</mat-error>
+                <mat-error *ngIf="passwordErrorMessageValidation">{{errorMessage}}</mat-error>
             </mat-form-field>
             <span class="forgot">
                 <a href="#">Esqueceu a senha</a>

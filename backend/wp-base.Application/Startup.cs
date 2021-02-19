@@ -108,8 +108,8 @@ namespace wp_base.Application
                 options.AddPolicy(name: wpBase, builder =>
                 {
                     builder.WithOrigins("http://localhost:4200")
-                            .AllowAnyOrigin()
-                            .WithHeaders(HeaderNames.ContentType, "content-type");
+                            .WithHeaders(HeaderNames.ContentType, "content-type")
+                            .AllowAnyMethod();
 
                 });
             });
@@ -130,6 +130,7 @@ namespace wp_base.Application
 
             app.UseRouting();
             app.UseCors(wpBase);
+            //   app.UseCors( x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
