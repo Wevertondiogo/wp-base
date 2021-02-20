@@ -53,7 +53,11 @@
             <span class="forgot">
                 <a href="#">Esqueceu a senha</a>
             </span>
-            <button type="submit" mat-button class="btn-submit" [disabled]="this.login.invalid">Login</button>
+            
+            <button type="submit" mat-button class="btn-submit" [disabled]="this.login.invalid">
+                <p *ngIf="!isLoading">Login</p>
+                <mat-spinner [diameter]="30" *ngIf="isLoading"></mat-spinner>
+            </button>
         </div>
 
     </form>

@@ -52,12 +52,16 @@
         }
       }
       .btn-submit {
+        display: flex;
+        justify-content: center;
         margin-top: 7px;
         width: 100%;
         background-color: #024764;
         color: #fff;
         box-shadow: 1px 1px 3px #000;
-
+        p {
+          margin: 0;
+        }
         &:disabled {
           opacity: 0.5;
           cursor: no-drop;

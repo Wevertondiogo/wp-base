@@ -15,6 +15,7 @@ import {
 export class LoginComponent implements OnInit {
   login!: FormGroup;
   errorMessage: string = '';
+  isLoading!: boolean;
   constructor(private fb: FormBuilder, private _service: LoginService) {}
 
   ngOnInit(): void {
@@ -23,11 +24,16 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(): void {
     const login = this.login.value;
+    this.isLoading = true;
     this._service.Auth(login).subscribe(
-      (result) => console.log(result),
+      (result) => {
+        this.isLoading = false;
+        console.log(result);
+      },
       (exception) => {
         this.login.get('email')?.setErrors({ fieldsInvalid: true });
         this.login.get('password')?.setErrors({ fieldsInvalid: true });
+        this.isLoading = false;
         this.errorMessage = exception.error.message;
       }
     );
