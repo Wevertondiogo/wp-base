@@ -7,7 +7,7 @@ using wp_base.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 
 
-namespace wp_base.Application.Config
+namespace wp_base.Application.Helpers
 {
     public class JwtAuth
     {

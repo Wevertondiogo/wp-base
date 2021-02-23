@@ -1,4 +1,4 @@
-namespace wp_base.Application.Config
+namespace wp_base.Application.Helpers
 {
     public class Setting
     {
