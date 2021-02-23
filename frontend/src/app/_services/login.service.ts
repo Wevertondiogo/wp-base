@@ -1,5 +1,5 @@
-import { environment } from './../../environments/environment';
-import { Login } from './login.model';
+import { environment } from '../../environments/environment';
+import { Login } from '../_models/login.model';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -16,7 +16,7 @@ export class LoginService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      // 'Access-Control-Allow-Origin': '*',
+      // 'Access-Control-Allow-Origin': 'http://localhost:4200',
     }),
   };
   constructor(private http: HttpClient) {}

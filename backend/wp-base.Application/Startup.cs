@@ -18,7 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using wp_base.Application.Config;
+using wp_base.Application.Helpers;
 using wp_base.Domain.Interfaces.Repositories;
 using wp_base.Infra.Data.Context;
 using wp_base.Infra.Data.Repositories;
@@ -108,7 +108,8 @@ namespace wp_base.Application
                 options.AddPolicy(name: wpBase, builder =>
                 {
                     builder.WithOrigins("http://localhost:4200")
-                            .WithHeaders(HeaderNames.ContentType, "content-type")
+                            .AllowAnyHeader()
+                            // .WithHeaders(HeaderNames.ContentType, "Application/Json")
                             .AllowAnyMethod();
 
                 });
@@ -126,14 +127,16 @@ namespace wp_base.Application
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "wp_base.Application v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
+
             app.UseCors(wpBase);
-            //   app.UseCors( x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

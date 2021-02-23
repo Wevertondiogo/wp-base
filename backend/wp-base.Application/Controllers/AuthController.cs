@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using wp_base.Application.Config;
+using wp_base.Application.Helpers;
 using wp_base.Application.Validators;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;

@@ -1,11 +1,8 @@
-import { LoginService } from './login.service';
+import { TokenStorageService } from './../_services/token-storage.service';
+import { Router } from '@angular/router';
+import { LoginService } from '../_services/login.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +13,12 @@ export class LoginComponent implements OnInit {
   login!: FormGroup;
   errorMessage: string = '';
   isLoading!: boolean;
-  constructor(private fb: FormBuilder, private _service: LoginService) {}
+  constructor(
+    private fb: FormBuilder,
+    private _service: LoginService,
+    private router: Router,
+    private _tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
     this.CreateFormLogin();
@@ -28,13 +30,18 @@ export class LoginComponent implements OnInit {
     this._service.Auth(login).subscribe(
       (result) => {
         this.isLoading = false;
+        // this._tokenStorageService.SaveToken(result.token)
         console.log(result);
+        this.router.navigate(['dashboard']);
       },
       (exception) => {
         this.login.get('email')?.setErrors({ fieldsInvalid: true });
         this.login.get('password')?.setErrors({ fieldsInvalid: true });
         this.isLoading = false;
+        const tst = new XMLHttpRequest();
+        console.log(tst);
         this.errorMessage = exception.error.message;
+        console.error(exception.error);
       }
     );
   }
