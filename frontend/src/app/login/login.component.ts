@@ -1,6 +1,7 @@
+import { Company } from './../_models/company.model';
 import { TokenStorageService } from './../_services/token-storage.service';
 import { Router } from '@angular/router';
-import { LoginService } from '../_services/login.service';
+import { AuthService } from '../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   isLoading!: boolean;
   constructor(
     private fb: FormBuilder,
-    private _service: LoginService,
+    private _service: AuthService,
     private router: Router,
     private _tokenStorageService: TokenStorageService
   ) {}
@@ -28,18 +29,15 @@ export class LoginComponent implements OnInit {
     const login = this.login.value;
     this.isLoading = true;
     this._service.Auth(login).subscribe(
-      (result) => {
+      (result): void => {
         this.isLoading = false;
-        // this._tokenStorageService.SaveToken(result.token)
-        console.log(result);
+        this._tokenStorageService.SaveToken(result.token);
         this.router.navigate(['dashboard']);
       },
       (exception) => {
         this.login.get('email')?.setErrors({ fieldsInvalid: true });
         this.login.get('password')?.setErrors({ fieldsInvalid: true });
         this.isLoading = false;
-        const tst = new XMLHttpRequest();
-        console.log(tst);
         this.errorMessage = exception.error.message;
         console.error(exception.error);
       }

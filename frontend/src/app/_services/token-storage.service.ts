@@ -1,3 +1,4 @@
+import { Company } from './../_models/company.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class TokenStorageService {
   public SaveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
-  public GetToken(): void {
-    localStorage.getItem(this.TOKEN_KEY);
+  public get GetToken() {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 }
