@@ -22,11 +22,11 @@ export class JwtInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
-    const currentCompany = this._tokenStorageService.GetToken;
-    if (currentCompany) {
+    const token = this._tokenStorageService.GetToken;
+    if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentCompany}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     }

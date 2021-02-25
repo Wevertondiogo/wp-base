@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const login = this.login.value;
     this.isLoading = true;
-    this._service.Auth(login).subscribe(
+    this._service.Login(login).subscribe(
       (result): void => {
         this.isLoading = false;
         this._tokenStorageService.SaveToken(result.token);

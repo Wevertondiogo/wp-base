@@ -23,8 +23,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  public Auth(login: Login): Observable<Company> {
-    const authUrl = environment.urlApi + 'auth';
+  public Login(login: Login): Observable<Company> {
+    const authUrl = environment.apiUrl + 'auth';
     const json = JSON.stringify(login);
     return this.http.post<Company>(authUrl, json, this.httpOptions).pipe(
       retry(2)
@@ -38,9 +38,7 @@ export class AuthService {
     if (exception.error instanceof ErrorEvent)
       errorMessage = exception.error.message;
     else
-      errorMessage =
-        `Código do erro: ${exception.status}, ` +
-        `menssagem: ${exception.message}`;
+      errorMessage = `Código do erro: ${exception.status}, menssagem: ${exception.message}`;
 
     console.error(errorMessage);
     return throwError(errorMessage);

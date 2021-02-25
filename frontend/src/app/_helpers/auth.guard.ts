@@ -9,6 +9,7 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
+    private jwtHelper: JwtHelperService,
     private _tokenStorageService: TokenStorageService
   ) {}
   canActivate(
@@ -26,9 +28,9 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const currentUser = this._tokenStorageService.GetToken;
+    const token = this._tokenStorageService.GetToken;
 
-    if (currentUser) {
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
       return true;
     }
 
