@@ -39,6 +39,9 @@ $bgSideNav: #131432;
         &:hover {
           background-color: lighten($bgSideNav, 8%);
         }
+        &:focus {
+          outline: 0;
+        }
         .side-nav-icon {
           margin-right: 8px;
 
