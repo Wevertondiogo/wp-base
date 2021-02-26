@@ -1,0 +1,12 @@
+.query-container {
+  &-header {
+    margin: 3px auto;
+    width: 80%;
+
+    .btn-back {
+      padding: 0 25px;
+      background-color: red;
+      color: #fff;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { QueryModule } from './query/query.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,13 @@ import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [CommonModule, RouterModule, MatSidenavModule, MatIconModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    QueryModule,
+    MatSidenavModule,
+    MatIconModule,
+  ],
   exports: [DashboardComponent],
 })
 export class DashboardModule {}

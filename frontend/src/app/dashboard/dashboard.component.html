@@ -4,14 +4,17 @@
             <h1 class="side-nav-header-title">WP-base</h1>
         </div>
         <ul class="side-nav-menu">
-            <li class="side-nav-menu-item" routerLink="dashboard/query">
+            <li class="side-nav-menu-item" routerLink="dashboard/query" (click)="OnQuery()">
                 <mat-icon aria-hidden="false" class="side-nav-icon">perm_contact_calendar</mat-icon>
                 <a  class="side-nav-menu-item-link">Consultas</a>
             </li>
         </ul>
 
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content class="mat-drawer-content">
+        <h2 *ngIf="!this.onClickInQuery || this.isBack">
+            Consultas de Hoje (Em construção)
+        </h2>
         <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>

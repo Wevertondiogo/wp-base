@@ -1,5 +1,7 @@
-import { TokenStorageService } from './../_services/token-storage.service';
+import { DashboardService } from './../_services/dashboard.service';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private _tokenStorageService: TokenStorageService) {}
+  onClickInQuery = false;
+  isBack!: boolean;
+  constructor(private _dashBoardService: DashboardService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setIsBack();
+  }
+
+  OnQuery() {
+    this.onClickInQuery = true;
+    this._dashBoardService.setBackUrl(false);
+  }
+
+  setIsBack() {
+    this._dashBoardService.backUrl.subscribe((isBack) => {
+      this.isBack = isBack;
+    });
+  }
 }
