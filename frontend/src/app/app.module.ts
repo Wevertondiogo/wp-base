@@ -1,3 +1,4 @@
+import { DialogsModule } from './utils/dialogs/dialogs.module';
 import { AuthGuard } from './_helpers/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    DialogsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

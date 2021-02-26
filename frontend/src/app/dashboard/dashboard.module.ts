@@ -13,7 +13,9 @@ import { DashboardComponent } from './dashboard.component';
   imports: [
     CommonModule,
     RouterModule,
+
     QueryModule,
+
     MatSidenavModule,
     MatIconModule,
   ],
