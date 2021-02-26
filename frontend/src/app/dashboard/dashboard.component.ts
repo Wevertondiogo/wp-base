@@ -9,7 +9,5 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   constructor(private _tokenStorageService: TokenStorageService) {}
 
-  ngOnInit(): void {
-    console.log(this._tokenStorageService.GetToken);
-  }
+  ngOnInit(): void {}
 }
