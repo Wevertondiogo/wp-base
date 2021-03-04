@@ -48,7 +48,7 @@ namespace wp_base.Application.Controllers
         {
             try
             {
-                _companyRepository.AddCompany(company);
+                _companyRepository.Add(company);
                 if (await _companyRepository.SaveChangesAsync()) return Ok(company);
             }
             catch (Exception ex)
@@ -68,9 +68,9 @@ namespace wp_base.Application.Controllers
             try
             {
                 var result = await _companyRepository.GetCompanyById(id);
-                if (result == null || result.Id != id) return NotFound();
+                if (result == null || result.CompanyId != id) return NotFound();
 
-                _companyRepository.UpdateCompany(company);
+                _companyRepository.Update(company);
                 if (await _companyRepository.SaveChangesAsync()) return Ok(company);
             }
             catch (Exception ex)
@@ -91,9 +91,9 @@ namespace wp_base.Application.Controllers
             try
             {
                 var result = await _companyRepository.GetCompanyById(id);
-                if (result == null || result.Id != id) return NotFound();
+                if (result == null || result.CompanyId != id) return NotFound();
 
-                _companyRepository.DeleteCompany(company);
+                _companyRepository.Delete(company);
                 if (await _companyRepository.SaveChangesAsync()) return Ok("company was Deleted!");
             }
             catch (Exception ex)

@@ -22,7 +22,7 @@ namespace wp_base.Application.Helpers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Role, company.Id.ToString()),
+                    new Claim(ClaimTypes.Role, company.CompanyId.ToString()),
                     new Claim(ClaimTypes.Name, company.Name),
                     new Claim(ClaimTypes.Email, company.Email),
                 }),

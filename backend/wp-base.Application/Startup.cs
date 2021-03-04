@@ -19,9 +19,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using wp_base.Application.Helpers;
+using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
 using wp_base.Infra.Data.Context;
 using wp_base.Infra.Data.Repositories;
+using wp_base.Infra.Data.Repositories.Client;
 
 namespace wp_base.Application
 {
@@ -79,9 +81,10 @@ namespace wp_base.Application
                 c.IncludeXmlComments(xmlPath);
             });
             var connetionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(connetionString));
-            // services.AddDbContext<DataContext>();
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            // services.AddDbContext<DataContext>(options => options.UseSqlServer(connetionString));
+            services.AddDbContext<DataContext>();
+            // services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
 
             var Key = Encoding.ASCII.GetBytes(Setting.Key);
 

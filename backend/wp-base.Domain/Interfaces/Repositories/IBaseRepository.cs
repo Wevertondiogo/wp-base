@@ -5,12 +5,9 @@ namespace wp_base.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        void AddCompany(TEntity entity);
-        void UpdateCompany(TEntity entity);
-        void DeleteCompany(TEntity entity);
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
         Task<bool> SaveChangesAsync();
-        Task<IEnumerable<TEntity>> GetCompany();
-        Task<TEntity> GetCompanyById(int? id);
-        Task<TEntity> FetchCompany(string email, string password);
     }
 }
