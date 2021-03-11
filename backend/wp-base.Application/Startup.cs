@@ -83,7 +83,7 @@ namespace wp_base.Application
             var connetionString = Configuration.GetConnectionString("DefaultConnection");
             // services.AddDbContext<DataContext>(options => options.UseSqlServer(connetionString));
             services.AddDbContext<DataContext>();
-            // services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
 
             var Key = Encoding.ASCII.GetBytes(Setting.Key);

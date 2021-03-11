@@ -68,7 +68,7 @@ namespace wp_base.Application.Controllers
             try
             {
                 var result = await _companyRepository.GetCompanyById(id);
-                if (result == null || result.CompanyId != id) return NotFound();
+                if (result == null || result.Id != id) return NotFound();
 
                 _companyRepository.Update(company);
                 if (await _companyRepository.SaveChangesAsync()) return Ok(company);
@@ -91,7 +91,7 @@ namespace wp_base.Application.Controllers
             try
             {
                 var result = await _companyRepository.GetCompanyById(id);
-                if (result == null || result.CompanyId != id) return NotFound();
+                if (result == null || result.Id != id) return NotFound();
 
                 _companyRepository.Delete(company);
                 if (await _companyRepository.SaveChangesAsync()) return Ok("company was Deleted!");

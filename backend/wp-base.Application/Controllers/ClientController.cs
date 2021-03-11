@@ -4,22 +4,38 @@ using Microsoft.AspNetCore.Mvc;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
 
+
 namespace wp_base.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-        private readonly IBaseRepository<ClientEntity> _baseRepository;
-        public ClientController(IBaseRepository<ClientEntity> baseRepository) => _baseRepository = baseRepository;
+        private readonly IClientRepository _clientRepository;
+        public ClientController(IClientRepository clientRepository) => _clientRepository = clientRepository;
+
+        [HttpGet]
+        public async Task<IActionResult> GetClients()
+        {
+            try
+            {
+                var clients = await _clientRepository.GetClients();
+                return Ok(clients);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddClient(ClientEntity client)
         {
             try
             {
-                _baseRepository.Add(client);
-                if (await _baseRepository.SaveChangesAsync()) return Ok(client);
+                _clientRepository.Add(client);
+                if (await _clientRepository.SaveChangesAsync()) return Ok(client);
             }
             catch (Exception ex)
             {
@@ -28,4 +44,5 @@ namespace wp_base.Application.Controllers
             return NoContent();
         }
     }
+
 }

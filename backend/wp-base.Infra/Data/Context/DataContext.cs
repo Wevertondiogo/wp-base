@@ -12,17 +12,15 @@ namespace wp_base.Infra.Data.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+            // modelBuilder.Entity<CompanyEntity>()
+            //             .HasKey(c => c.CompanyId);
             modelBuilder.Entity<ClientEntity>()
-                        .HasKey(c => c.ClientId);
-
-            modelBuilder.Entity<CompanyEntity>()
-                        .HasKey(c => c.CompanyId);
-
-
-            modelBuilder.Entity<ClientEntity>()
-                        .HasOne(c => c.Company)
-                        .WithMany(c => c.Clients)
-                        .HasForeignKey(c => c.CompanyForeignKey);
+                .HasOne(c => c.Company)
+                .WithMany(c => c.Clients)
+                .HasForeignKey(c => c.CompanyForeignKey);
+          
         }
 
 

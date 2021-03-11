@@ -3,7 +3,7 @@ namespace wp_base.Domain.Entities
 {
     public class ClientEntity
     {
-        public int ClientId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string email { get; set; }
         public string BirthDate { get; set; }
@@ -24,6 +24,6 @@ namespace wp_base.Domain.Entities
         public string MatrialState { get; set; }
         public string Nationality { get; set; }
         public int CompanyForeignKey { get; set; }
-        public virtual CompanyEntity Company { get; set; }
+        public CompanyEntity Company { get; set; }
     }
 }
