@@ -8,6 +8,7 @@ using wp_base.Application.Validators;
 using wp_base.Domain.Entities;
 using wp_base.Domain.Interfaces.Repositories;
 using wp_base.Domain.Models;
+using wp_base.Domain.Models.Filters;
 
 namespace wp_base.Application.Controllers
 {
@@ -24,9 +25,9 @@ namespace wp_base.Application.Controllers
         [AllowAnonymous]
 
         [SwaggerResponse(statusCode: 200, description: "Success in authentication", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(CompanyEntity))]
-        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(CompanyEntity))]
+        [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
+        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
+        [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
         [ValidadeModelStateCustomers]
         public async Task<IActionResult> Auth([FromBody] AuthModel authCompany)
         {
