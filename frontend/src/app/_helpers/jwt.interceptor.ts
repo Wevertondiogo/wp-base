@@ -9,12 +9,14 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private _tokenStorageService: TokenStorageService
+    private _tokenStorageService: TokenStorageService,
+    private jwtHelper: JwtHelperService
   ) {}
 
   intercept(
@@ -23,7 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     const token = this._tokenStorageService.GetToken;
-    if (token) {
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

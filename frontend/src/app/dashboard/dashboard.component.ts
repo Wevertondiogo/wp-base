@@ -15,6 +15,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setIsBack();
+    this._dashBoardService
+      .getCompany()
+      .subscribe((companies) => console.log(companies));
   }
 
   OnQuery() {

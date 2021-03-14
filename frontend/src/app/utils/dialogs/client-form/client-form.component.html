@@ -60,7 +60,7 @@
         </mat-form-field>
 
         <div class="ps-btn">
-          <button mat-button matStepperNext class="btn-next">Next</button>
+          <button mat-button matStepperNext class="btn-next">Próximo</button>
         </div>
       </form>
     </mat-step>
@@ -98,10 +98,10 @@
         <mat-form-field>
           <mat-label>Naturalidade</mat-label>
           <input type="text" matInput required formControlName="nationality">
-        </mat-form-field>
+        </mat-form-field>   
         <div class="ps-btn">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext class="btn-next">Next</button>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext class="btn-next">Próximo</button>
         </div>
       </form>
     </mat-step>
@@ -109,8 +109,8 @@
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button>Confirmar</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
