@@ -106,11 +106,11 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
+      <ng-template matStepLabel>Concluir</ng-template>
       <p>You are now done.</p>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button>Confirmar</button>
+        <button mat-button class="btn-confirm"  (click)="clientSubmit()">Confirmar</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

@@ -1,5 +1,6 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ClientFormService } from 'src/app/_services/client-form.service';
 
 @Component({
   selector: 'app-client-form',
@@ -9,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class ClientFormComponent implements OnInit {
   firstSignUp!: FormGroup;
   secondSignUp!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  clientSignUp!: FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private _clientFormService: ClientFormService
+  ) {}
 
   genders = ['M', 'F'];
 
@@ -36,5 +41,15 @@ export class ClientFormComponent implements OnInit {
       maritalState: ['', Validators.required],
       nationality: ['', Validators.required],
     });
+  }
+  clientSubmit() {
+    const client = Object.assign(
+      this.firstSignUp.value,
+      this.secondSignUp.value
+    );
+    this._clientFormService.AddClient(client).subscribe(
+      (result) => console.log(result),
+      (exception) => console.log(exception)
+    );
   }
 }

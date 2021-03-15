@@ -9,16 +9,18 @@
     .btn-next {
       background-color: #131432;
       color: #fff;
-
-      padding: 0 20px;
     }
   }
-
+  
   mat-form-field {
     width: 42%;
   }
 }
 
+.btn-confirm {
+  background-color: green;
+  color: #fff;
+}
 .btn-cancel {
   background-color: red;
   color: #fff;
