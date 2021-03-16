@@ -19,6 +19,12 @@ export class ClientFormComponent implements OnInit {
   genders = ['M', 'F'];
 
   ngOnInit(): void {
+    // const date = new Date('jan 12 2020');
+    // const formateDate = `${date.getDate()}/${
+    //   date.getMonth() + 1
+    // }/${date.getFullYear()}`;
+    // console.log(formateDate);
+
     this.firstSignUp = this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -33,6 +39,7 @@ export class ClientFormComponent implements OnInit {
     });
     this.secondSignUp = this.fb.group({
       address: ['', Validators.required],
+      state: ['', Validators.required],
       number: ['', Validators.required],
       complement: ['', Validators.required],
       district: ['', Validators.required],
@@ -47,9 +54,23 @@ export class ClientFormComponent implements OnInit {
       this.firstSignUp.value,
       this.secondSignUp.value
     );
+
+    client.birthDate = this.FormateDate(client);
+
     this._clientFormService.AddClient(client).subscribe(
       (result) => console.log(result),
       (exception) => console.log(exception)
     );
+  }
+  AddZero = (number: number) => (number <= 9 ? `0${number}` : number);
+
+  FormateDate(client: any) {
+    const formateDate = `${this.AddZero(
+      client.birthDate.getDate().toString()
+    )}/${this.AddZero(
+      client.birthDate.getMonth() + 1
+    ).toString()}/${client.birthDate.getFullYear()}`;
+
+    return formateDate;
   }
 }

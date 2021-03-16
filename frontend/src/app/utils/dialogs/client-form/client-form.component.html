@@ -53,8 +53,14 @@
         <mat-form-field>
           <mat-label>Sexo</mat-label>
           <mat-select required formControlName="gender">
-            <mat-option *ngFor="let gender of genders" [value]="genders">
+            <!-- <mat-option *ngFor="let gender of genders" [value]="genders">
               {{gender}}
+            </mat-option> -->
+            <mat-option value="M">
+              M
+            </mat-option>
+            <mat-option value="F">
+              F
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -70,6 +76,10 @@
         <mat-form-field>
           <mat-label>Endereço</mat-label>
           <input type="text" matInput required formControlName="address">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Estado</mat-label>
+          <input type="text" matInput required formControlName="state">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Número</mat-label>

@@ -40,7 +40,7 @@ namespace wp_base.Application.Controllers
 
         [SwaggerResponse(statusCode: 201, description: "Company was created with success", Type = typeof(CompanyEntity))]
         [SwaggerResponse(statusCode: 400, description: "Bad request", Type = typeof(ValidateFieldViewModelOutput))]
-        [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
+        // [SwaggerResponse(statusCode: 404, description: "Not Found", Type = typeof(GenericErrorViewModel))]
         [SwaggerResponse(statusCode: 500, description: "Internal server error", Type = typeof(GenericErrorViewModel))]
         [ValidadeModelStateCustomers]
         [HttpPost("add")]

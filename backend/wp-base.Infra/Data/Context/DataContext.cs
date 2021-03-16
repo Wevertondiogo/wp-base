@@ -16,10 +16,9 @@ namespace wp_base.Infra.Data.Context
                 .HasOne(c => c.Company)
                 .WithMany(c => c.Clients)
                 .HasForeignKey(c => c.CompanyForeignKey);
-          
         }
 
-            public DbSet<CompanyEntity> CompanyEntityTest { get; set; }
+        public DbSet<CompanyEntity> CompanyEntityTest { get; set; }
         public DbSet<ClientEntity> ClientEntityTest { get; set; }
     }
 }
