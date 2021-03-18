@@ -2,8 +2,15 @@ import { Company } from './../_models/company.model';
 import { TokenStorageService } from './../_services/token-storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+import { EmailValidators } from './../Validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +25,16 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private _service: AuthService,
     private router: Router,
-    private _tokenStorageService: TokenStorageService
+    private _tokenStorageService: TokenStorageService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
+
+  ngAfterContentChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.CreateFormLogin();
-    // setInterval(() => console.log(this.errorMessage.length > 0), 2000);
   }
   onSubmit(): void {
     const login = this.login.value;
@@ -53,7 +64,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get emailErrorMessageValidation(): boolean {
+  get emailErrorMessageInvalidationServer(): boolean {
     const controller = this.login.get('email');
     return (
       controller?.invalid &&
@@ -76,11 +87,7 @@ export class LoginComponent implements OnInit {
 
   get invalidEmail(): boolean {
     const controller = this.login.get('email');
-    return (
-      controller?.invalid &&
-      (controller.dirty || controller.touched) &&
-      controller?.errors?.email
-    );
+    return EmailValidators.VerifyEmail(controller);
   }
   get requiredPassword(): boolean {
     const controller = this.login.get('password');
