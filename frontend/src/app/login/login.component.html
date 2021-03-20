@@ -37,7 +37,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <input type="email" matInput placeholder="Digite seu email" formControlName="email">
                 <mat-icon matSuffix class="icons">email</mat-icon>
-                <mat-error *ngIf="requiredEmail">Email é obrigatório.</mat-error>
+                <mat-error *ngIf="emailRequired">Email é obrigatório.</mat-error>
                 <mat-error *ngIf="invalidEmail">Email incorreto.</mat-error>
                 <mat-error *ngIf="emailErrorMessageInvalidationServer">{{errorMessage}}</mat-error>
             </mat-form-field>
@@ -46,7 +46,7 @@
             <mat-form-field appearance="outline" class="form-field ">
                 <input type="password" matInput placeholder="Digite sua senha" formControlName="password" maxlength="38"> 
                 <mat-icon matSuffix class="icons">lock</mat-icon>
-                <mat-error *ngIf="requiredPassword">Senha é obrigatório.</mat-error>
+                <mat-error *ngIf="passwordRequired">Senha é obrigatório.</mat-error>
                 <mat-error *ngIf="errorMinLength">O minímo de caracteres são 6.</mat-error>
                 <mat-error *ngIf="passwordErrorMessageValidation">{{errorMessage}}</mat-error>
             </mat-form-field>

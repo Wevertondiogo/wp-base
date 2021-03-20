@@ -2,22 +2,25 @@
 <mat-dialog-content class="mat-typography">
 
   <mat-horizontal-stepper linear #stepper>
-    <mat-step [stepControl]="firstSignUp">
-      <form class="form" [formGroup]="firstSignUp">
+    <mat-step [stepControl]="firstStageSignUpClient">
+      <form class="form" [formGroup]="firstStageSignUpClient">
         <ng-template matStepLabel>Etapa 1</ng-template>
         <mat-form-field>
           <mat-label>Nome Completo</mat-label>
           <input type="text" matInput required formControlName="name">
+          <mat-error *ngIf="nameRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input type="email" matInput required formControlName="email">
+          <mat-error *ngIf="emailRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Data de nascimento</mat-label>
           <input matInput [matDatepicker]="picker" required formControlName="birthDate">
+          <mat-error *ngIf="birthDateRequired">Este campo é obrigatório</mat-error>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -25,29 +28,35 @@
         <mat-form-field>
           <mat-label>CPF</mat-label>
           <input type="text" matInput required formControlName="CPF">
+          <mat-error *ngIf="cpfRequired">Este campo é obrigatório</mat-error>
+          <mat-error *ngIf="cpfValidated">Formato de cpf incorreto</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>RG</mat-label>
           <input type="text" matInput required formControlName="RG">
+          <mat-error *ngIf="rgRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Telefone Celular</mat-label>
           <input type="text" matInput required  formControlName="cellNumber">
+          <mat-error *ngIf="cellNumberRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Telefone Fixo</mat-label>
-          <input type="text" matInput required formControlName="phoneNumber">
+          <input type="text" matInput  formControlName="phoneNumber">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Whatsapp</mat-label>
           <input type="text" matInput required formControlName="whatsapp">
+          <mat-error *ngIf="whatsappRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Profissão</mat-label>
-          <input type="text" matInput required formControlName="job">
+          <input type="text" matInput formControlName="job">
+          <mat-error *ngIf="jobRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -63,6 +72,7 @@
               F
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="genderRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <div class="ps-btn">
@@ -70,44 +80,52 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondSignUp">
-      <form class="form" [formGroup]="secondSignUp">
+    <mat-step [stepControl]="secondStageSignUpClient">
+      <form class="form" [formGroup]="secondStageSignUpClient">
         <ng-template matStepLabel>Etapa 2</ng-template>
         <mat-form-field>
           <mat-label>Endereço</mat-label>
           <input type="text" matInput required formControlName="address">
+          <mat-error *ngIf="addressRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Estado</mat-label>
           <input type="text" matInput required formControlName="state">
+          <mat-error *ngIf="stateRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Número</mat-label>
           <input type="text" matInput required formControlName="number">
+          <mat-error *ngIf="numberRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Complemento</mat-label>
-          <input type="text" matInput required formControlName="complement">
+          <input type="text" matInput  formControlName="complement">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Bairro</mat-label>
           <input type="text" matInput required formControlName="district">
+          <mat-error *ngIf="districtRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Cidade</mat-label>
           <input type="text" matInput required formControlName="city">
+          <mat-error *ngIf="cityRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>CEP</mat-label>
           <input type="text" matInput required formControlName="CEP">
+          <mat-error *ngIf="cepRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Estado civil</mat-label>
           <input type="text" matInput required formControlName="maritalState">
+          <mat-error *ngIf="maritalStateRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Naturalidade</mat-label>
           <input type="text" matInput required formControlName="nationality">
+          <mat-error *ngIf="nationalityRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>   
         <div class="ps-btn">
           <button mat-button matStepperPrevious>Voltar</button>

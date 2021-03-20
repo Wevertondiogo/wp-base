@@ -1,6 +1,13 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ClientFormService } from 'src/app/_services/client-form.service';
+import { EmailValidators } from './../../../Validators/email.validator';
+import { CPFValidators } from './../../../Validators/cpf.validator';
 
 @Component({
   selector: 'app-client-form',
@@ -8,40 +15,38 @@ import { ClientFormService } from 'src/app/_services/client-form.service';
   styleUrls: ['./client-form.component.scss'],
 })
 export class ClientFormComponent implements OnInit {
-  firstSignUp!: FormGroup;
-  secondSignUp!: FormGroup;
+  genders = new FormControl('', Validators.required);
+  firstStageSignUpClient!: FormGroup;
+  secondStageSignUpClient!: FormGroup;
   clientSignUp!: FormGroup;
   constructor(
     private fb: FormBuilder,
     private _clientFormService: ClientFormService
   ) {}
 
-  genders = ['M', 'F'];
+  // genders = ['M', 'F'];
 
   ngOnInit(): void {
-    // const date = new Date('jan 12 2020');
-    // const formateDate = `${date.getDate()}/${
-    //   date.getMonth() + 1
-    // }/${date.getFullYear()}`;
-    // console.log(formateDate);
-
-    this.firstSignUp = this.fb.group({
+    this.firstStageSignUpClient = this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       birthDate: ['', Validators.required],
-      CPF: ['', Validators.required],
+      CPF: [
+        '',
+        Validators.compose([Validators.required, CPFValidators.verifyCPF]),
+      ],
       RG: ['', Validators.required],
       cellNumber: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      job: ['', Validators.required],
+      phoneNumber: [''],
+      job: [''],
       whatsapp: ['', Validators.required],
       gender: ['', Validators.required],
     });
-    this.secondSignUp = this.fb.group({
+    this.secondStageSignUpClient = this.fb.group({
       address: ['', Validators.required],
       state: ['', Validators.required],
       number: ['', Validators.required],
-      complement: ['', Validators.required],
+      complement: [''],
       district: ['', Validators.required],
       city: ['', Validators.required],
       CEP: ['', Validators.required],
@@ -51,8 +56,8 @@ export class ClientFormComponent implements OnInit {
   }
   clientSubmit() {
     const client = Object.assign(
-      this.firstSignUp.value,
-      this.secondSignUp.value
+      this.firstStageSignUpClient.value,
+      this.secondStageSignUpClient.value
     );
 
     client.birthDate = this.FormateDate(client);
@@ -66,11 +71,102 @@ export class ClientFormComponent implements OnInit {
 
   FormateDate(client: any) {
     const formateDate = `${this.AddZero(
-      client.birthDate.getDate().toString()
+      client.birthDate?.getDate()
     )}/${this.AddZero(
-      client.birthDate.getMonth() + 1
-    ).toString()}/${client.birthDate.getFullYear()}`;
+      client.birthDate?.getMonth() + 1
+    )}/${client.birthDate?.getFullYear().toString()}`;
 
     return formateDate;
+  }
+
+  private AlterFormatterDate(date: string): string {
+    if (date.length === 2 || date.length === 5) {
+      date += '/';
+      console.log(date, 'length', date.length);
+    }
+    return date;
+  }
+
+  private FormatterDate(date: any) {
+    const formateDate = `${date?.getDate()} ${date?.getMonth()} ${date?.getFullYear()}`;
+    return formateDate?.toString();
+  }
+
+  public get nameRequired() {
+    const controller = this.firstStageSignUpClient.get('name');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get emailRequired() {
+    const controller = this.firstStageSignUpClient.get('email');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get birthDateRequired() {
+    const controller = this.firstStageSignUpClient.get('birthDate');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get cpfRequired() {
+    const controller = this.firstStageSignUpClient.get('CPF');
+    return controller?.invalid && controller?.errors?.required;
+  }
+
+  public get cpfValidated() {
+    const controller = this.firstStageSignUpClient.get('CPF');
+    return controller?.errors?.cpfInvalidated;
+  }
+
+  public get rgRequired() {
+    const controller = this.firstStageSignUpClient.get('RG');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get cellNumberRequired() {
+    const controller = this.firstStageSignUpClient.get('cellNumber');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get whatsappRequired() {
+    const controller = this.firstStageSignUpClient.get('whatsapp');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get jobRequired() {
+    const controller = this.firstStageSignUpClient.get('job');
+    return controller?.invalid && controller?.errors?.required;
+  }
+
+  public get genderRequired() {
+    const controller = this.firstStageSignUpClient.get('gender');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  // secondStageSignUpClient
+
+  public get addressRequired() {
+    const controller = this.secondStageSignUpClient.get('address');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get stateRequired() {
+    const controller = this.secondStageSignUpClient.get('state');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get numberRequired() {
+    const controller = this.secondStageSignUpClient.get('number');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get districtRequired() {
+    const controller = this.secondStageSignUpClient.get('district');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get cityRequired() {
+    const controller = this.secondStageSignUpClient.get('city');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get cepRequired() {
+    const controller = this.secondStageSignUpClient.get('CEP');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get maritalStateRequired() {
+    const controller = this.secondStageSignUpClient.get('maritalState');
+    return controller?.invalid && controller?.errors?.required;
+  }
+  public get nationalityRequired() {
+    const controller = this.secondStageSignUpClient.get('nationality');
+    return controller?.invalid && controller?.errors?.required;
   }
 }

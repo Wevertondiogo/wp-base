@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
       controller.errors?.fieldsInvalid
     );
   }
-  get requiredEmail(): boolean {
+  get emailRequired(): boolean {
     const controller = this.login.get('email');
     return controller?.invalid && controller?.errors?.required;
   }
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
     const controller = this.login.get('email');
     return EmailValidators.VerifyEmail(controller);
   }
-  get requiredPassword(): boolean {
+  get passwordRequired(): boolean {
     const controller = this.login.get('password');
     return controller?.invalid && controller?.errors?.required;
   }
