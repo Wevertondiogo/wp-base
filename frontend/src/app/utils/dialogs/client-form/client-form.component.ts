@@ -26,6 +26,13 @@ export class ClientFormComponent implements OnInit {
 
   // genders = ['M', 'F'];
 
+  tst(tst: string) {
+    let h = tst;
+    if (tst.length === 3 || tst.length === 7) h = '.';
+    if (tst.length === 11) h += '-';
+    return h;
+  }
+
   ngOnInit(): void {
     this.firstStageSignUpClient = this.fb.group({
       name: ['', Validators.required],
@@ -106,6 +113,9 @@ export class ClientFormComponent implements OnInit {
   }
   public get cpfRequired() {
     const controller = this.firstStageSignUpClient.get('CPF');
+
+    console.log(this.tst(controller?.value));
+
     return controller?.invalid && controller?.errors?.required;
   }
 

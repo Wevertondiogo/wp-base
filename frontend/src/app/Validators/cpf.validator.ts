@@ -7,7 +7,7 @@ export class CPFValidators {
     let rest: number;
     let validated: boolean;
 
-    const regex = new RegExp('[0-9]{11}');
+    const regex = /([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})/;
 
     if (
       cpf == '00000000000' ||
@@ -38,6 +38,7 @@ export class CPFValidators {
 
       if (rest == 10 || rest == 11) rest = 0;
       if (rest != parseInt(cpf.substring(10, 11))) validated = false;
+
       validated = true;
     }
 
