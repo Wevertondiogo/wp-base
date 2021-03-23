@@ -4,7 +4,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ClientFormService } from 'src/app/_services/client-form.service';
 import { EmailValidators } from './../../../Validators/email.validator';
 import { CPFValidators } from './../../../Validators/cpf.validator';
@@ -21,12 +21,19 @@ export class ClientFormComponent implements OnInit {
   clientSignUp!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private _clientFormService: ClientFormService
+    private _clientFormService: ClientFormService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
+  // @ViewChild('cpf')
+  // cpf!: ElementRef;
   // genders = ['M', 'F'];
 
-  tst(tst: string) {}
+  cpf!: String;
+
+  ngAfterContentChecked(): void {
+    this.changeDetectorRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.firstStageSignUpClient = this.fb.group({
@@ -39,7 +46,7 @@ export class ClientFormComponent implements OnInit {
       ],
       RG: ['', Validators.required],
       cellNumber: ['', Validators.required],
-      phoneNumber: [''],
+      phoneNumber: ['', Validators.pattern('^(d{2})d{4}-d{4}$')],
       job: [''],
       whatsapp: ['', Validators.required],
       gender: ['', Validators.required],
@@ -93,7 +100,10 @@ export class ClientFormComponent implements OnInit {
     const formateDate = `${date?.getDate()} ${date?.getMonth()} ${date?.getFullYear()}`;
     return formateDate?.toString();
   }
-
+  private FormatterCpf() {
+    if (this.cpf?.length === 3 || this.cpf?.length === 7) this.cpf += '.';
+    if (this.cpf?.length === 11) this.cpf += '-';
+  }
   public get nameRequired() {
     const controller = this.firstStageSignUpClient.get('name');
     return controller?.invalid && controller?.errors?.required;
@@ -113,6 +123,7 @@ export class ClientFormComponent implements OnInit {
 
   public get cpfValidated() {
     const controller = this.firstStageSignUpClient.get('CPF');
+    this.FormatterCpf();
     return controller?.errors?.cpfInvalidated;
   }
 
@@ -124,10 +135,12 @@ export class ClientFormComponent implements OnInit {
     const controller = this.firstStageSignUpClient.get('cellNumber');
     return controller?.invalid && controller?.errors?.required;
   }
+
   public get whatsappRequired() {
     const controller = this.firstStageSignUpClient.get('whatsapp');
     return controller?.invalid && controller?.errors?.required;
   }
+
   public get jobRequired() {
     const controller = this.firstStageSignUpClient.get('job');
     return controller?.invalid && controller?.errors?.required;

@@ -27,7 +27,7 @@
 
         <mat-form-field>
           <mat-label>CPF</mat-label>
-          <input type="text" matInput required formControlName="CPF" maxLength="14">
+          <input type="text" matInput required formControlName="CPF" maxLength="14"  [(ngModel)]="cpf">
           <mat-error *ngIf="cpfRequired">Este campo é obrigatório</mat-error>
           <mat-error *ngIf="cpfValidated">Formato de cpf incorreto</mat-error>
         </mat-form-field>
