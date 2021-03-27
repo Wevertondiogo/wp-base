@@ -30,6 +30,10 @@ export class ClientFormComponent implements OnInit {
   // genders = ['M', 'F'];
 
   cpf!: String;
+  date!: string;
+  rg!: string;
+  cellNumber!: string;
+  whatsapp!: string;
 
   ngAfterContentChecked(): void {
     this.changeDetectorRef.detectChanges();
@@ -69,41 +73,87 @@ export class ClientFormComponent implements OnInit {
       this.secondStageSignUpClient.value
     );
 
-    client.birthDate = this.FormateDate(client);
+    client.birthDate = this.DateFormatter(client.birthDate);
 
     this._clientFormService.AddClient(client).subscribe(
       (result) => console.log(result),
       (exception) => console.log(exception)
     );
   }
-  AddZero = (number: number) => (number <= 9 ? `0${number}` : number);
+  AddZeroInDate = (number: number) => (number <= 9 ? `0${number}` : number);
 
-  FormateDate(client: any) {
-    const formateDate = `${this.AddZero(
-      client.birthDate?.getDate()
-    )}/${this.AddZero(
-      client.birthDate?.getMonth() + 1
-    )}/${client.birthDate?.getFullYear().toString()}`;
+  DateFormatter(birthDate: any) {
+    const DateFormatter = `${this.AddZeroInDate(
+      birthDate?.getDate()
+    )}/${this.AddZeroInDate(
+      birthDate?.getMonth() + 1
+    )}/${birthDate?.getFullYear().toString()}`;
 
-    return formateDate;
+    // console.log(DateFormatter);
+
+    return DateFormatter;
   }
 
-  private AlterFormatterDate(date: string): string {
-    if (date.length === 2 || date.length === 5) {
-      date += '/';
-      console.log(date, 'length', date.length);
+  // private DateFormatterField(date: any) {
+  //   const DateFormatter = `${date?.getDate()} ${date?.getMonth()} ${date?.getFullYear()}`;
+  //   return DateFormatter?.toString();
+  // }
+  private CpfFormatterField() {
+    const cfpLength = this.cpf?.length;
+    if (cfpLength === 3 || cfpLength === 7) this.cpf += '.';
+    if (cfpLength === 11) this.cpf += '-';
+  }
+
+  private DateFormatterField() {
+    // const date = this.date;
+    // const dateFormatter = this.DateFormatter(date);
+    if (this.date?.length === 2 || this.date?.length === 5) {
+      this.date += '/';
+      console.log(this.date, 'length', this.date?.length);
     }
-    return date;
+
+    // console.log(this.date);
+    // console.log(dateFormatter);
   }
 
-  private FormatterDate(date: any) {
-    const formateDate = `${date?.getDate()} ${date?.getMonth()} ${date?.getFullYear()}`;
-    return formateDate?.toString();
+  private RgFormatter() {
+    const rgLength = this.rg?.length;
+    if (rgLength === 2 || rgLength === 6) this.rg += '.';
   }
-  private FormatterCpf() {
-    if (this.cpf?.length === 3 || this.cpf?.length === 7) this.cpf += '.';
-    if (this.cpf?.length === 11) this.cpf += '-';
+
+  private ImplementingEntityOfNumbers(entity: string) {
+    if (entity === 'cellNumber') {
+      this.cellNumber = this.CellNumberAndWhatsappFormatter(
+        this.cellNumber,
+        this.cellNumber?.length
+      );
+    }
+    if (entity === 'whatsapp')
+      this.whatsapp = this.CellNumberAndWhatsappFormatter(
+        this.whatsapp,
+        this.whatsapp?.length
+      );
   }
+
+  private CellNumberAndWhatsappFormatter(entity: string, length: number) {
+    entity = this.IncludeDDD(entity, length);
+
+    console.log(entity, length);
+
+    if (length === 5 && entity?.indexOf(' ') === 4) entity += '9';
+
+    if (length === 10 && entity?.indexOf('9') === 5) entity += '-';
+
+    return entity;
+  }
+
+  private IncludeDDD(item: string, length: number) {
+    if (length === 1) item = '(' + item;
+    if (length === 3) item += ')';
+
+    return item;
+  }
+
   public get nameRequired() {
     const controller = this.firstStageSignUpClient.get('name');
     return controller?.invalid && controller?.errors?.required;
@@ -114,6 +164,7 @@ export class ClientFormComponent implements OnInit {
   }
   public get birthDateRequired() {
     const controller = this.firstStageSignUpClient.get('birthDate');
+    this.DateFormatterField();
     return controller?.invalid && controller?.errors?.required;
   }
   public get cpfRequired() {
@@ -123,21 +174,24 @@ export class ClientFormComponent implements OnInit {
 
   public get cpfValidated() {
     const controller = this.firstStageSignUpClient.get('CPF');
-    this.FormatterCpf();
+    this.CpfFormatterField();
     return controller?.errors?.cpfInvalidated;
   }
 
   public get rgRequired() {
     const controller = this.firstStageSignUpClient.get('RG');
+    this.RgFormatter();
     return controller?.invalid && controller?.errors?.required;
   }
   public get cellNumberRequired() {
     const controller = this.firstStageSignUpClient.get('cellNumber');
+    this.ImplementingEntityOfNumbers('cellNumber');
     return controller?.invalid && controller?.errors?.required;
   }
 
   public get whatsappRequired() {
     const controller = this.firstStageSignUpClient.get('whatsapp');
+    this.ImplementingEntityOfNumbers('whatsapp');
     return controller?.invalid && controller?.errors?.required;
   }
 

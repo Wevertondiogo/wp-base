@@ -19,7 +19,7 @@
 
         <mat-form-field>
           <mat-label>Data de nascimento</mat-label>
-          <input matInput [matDatepicker]="picker" required formControlName="birthDate">
+          <input matInput [matDatepicker]="picker" required maxLength="10" formControlName="birthDate" [(ngModel)]="date">
           <mat-error *ngIf="birthDateRequired">Este campo é obrigatório</mat-error>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -34,13 +34,13 @@
 
         <mat-form-field>
           <mat-label>RG</mat-label>
-          <input type="text" matInput required formControlName="RG">
+          <input type="text" matInput required formControlName="RG" maxLength="10" [(ngModel)]="rg">
           <mat-error *ngIf="rgRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Telefone Celular</mat-label>
-          <input type="text" matInput required  formControlName="cellNumber">
+          <input type="text" matInput required  formControlName="cellNumber" [(ngModel)]="cellNumber" maxlength="15">
           <mat-error *ngIf="cellNumberRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
 
@@ -50,7 +50,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Whatsapp</mat-label>
-          <input type="text" matInput required formControlName="whatsapp">
+          <input type="text" matInput required formControlName="whatsapp" maxlength="15" [(ngModel)]="whatsapp">
           <mat-error *ngIf="whatsappRequired">Este campo é obrigatório</mat-error>
         </mat-form-field>
         <mat-form-field>
