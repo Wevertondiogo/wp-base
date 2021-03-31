@@ -33,9 +33,11 @@ export class ClientFormComponent implements OnInit {
   date!: string;
   rg!: string;
   cellNumber!: string;
+  phoneNumber!: string;
   whatsapp!: string;
 
   ngAfterContentChecked(): void {
+    this.FormatterPhoneNumber();
     this.changeDetectorRef.detectChanges();
   }
 
@@ -50,7 +52,7 @@ export class ClientFormComponent implements OnInit {
       ],
       RG: ['', Validators.required],
       cellNumber: ['', Validators.required],
-      phoneNumber: ['', Validators.pattern('^(d{2})d{4}-d{4}$')],
+      phoneNumber: [''],
       job: [''],
       whatsapp: ['', Validators.required],
       gender: ['', Validators.required],
@@ -125,20 +127,18 @@ export class ClientFormComponent implements OnInit {
     if (entity === 'cellNumber') {
       this.cellNumber = this.CellNumberAndWhatsappFormatter(
         this.cellNumber,
-        this.cellNumber?.length
+        this.cellNumber?.trim().length
       );
     }
     if (entity === 'whatsapp')
       this.whatsapp = this.CellNumberAndWhatsappFormatter(
         this.whatsapp,
-        this.whatsapp?.length
+        this.whatsapp?.trim().length
       );
   }
 
   private CellNumberAndWhatsappFormatter(entity: string, length: number) {
     entity = this.IncludeDDD(entity, length);
-
-    console.log(entity, length);
 
     if (length === 5 && entity?.indexOf(' ') === 4) entity += '9';
 
@@ -154,6 +154,14 @@ export class ClientFormComponent implements OnInit {
     return item;
   }
 
+  FormatterPhoneNumber() {
+    const value = this.phoneNumber;
+    const length = value?.trim().length;
+    this.phoneNumber = this.IncludeDDD(value, length);
+
+    if (length === 9) this.phoneNumber += '-';
+  }
+
   public get nameRequired() {
     const controller = this.firstStageSignUpClient.get('name');
     return controller?.invalid && controller?.errors?.required;
@@ -162,6 +170,12 @@ export class ClientFormComponent implements OnInit {
     const controller = this.firstStageSignUpClient.get('email');
     return controller?.invalid && controller?.errors?.required;
   }
+
+  get invalidEmail(): boolean {
+    const controller = this.firstStageSignUpClient.get('email');
+    return EmailValidators.VerifyEmail(controller);
+  }
+
   public get birthDateRequired() {
     const controller = this.firstStageSignUpClient.get('birthDate');
     this.DateFormatterField();
@@ -180,6 +194,7 @@ export class ClientFormComponent implements OnInit {
 
   public get rgRequired() {
     const controller = this.firstStageSignUpClient.get('RG');
+
     this.RgFormatter();
     return controller?.invalid && controller?.errors?.required;
   }
