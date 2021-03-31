@@ -38,6 +38,12 @@ export class ClientFormComponent implements OnInit {
 
   ngAfterContentChecked(): void {
     this.FormatterPhoneNumber();
+    this.CpfFormatterField();
+    this.RgFormatter();
+
+    this.ImplementingEntityOfNumbers('whatsapp');
+    this.ImplementingEntityOfNumbers('cellNumber');
+
     this.changeDetectorRef.detectChanges();
   }
 
@@ -107,14 +113,13 @@ export class ClientFormComponent implements OnInit {
   }
 
   private DateFormatterField() {
-    // const date = this.date;
-    // const dateFormatter = this.DateFormatter(date);
-    if (this.date?.length === 2 || this.date?.length === 5) {
-      this.date += '/';
-      console.log(this.date, 'length', this.date?.length);
-    }
+    this.date = this.DateFormatter(this.date);
+    // if (this.date?.length === 2 || this.date?.length === 5) {
+    //   this.date += '/';
+    //   console.log(this.date, 'length', this.date?.length);
+    // }
 
-    // console.log(this.date);
+    console.log(this.date);
     // console.log(dateFormatter);
   }
 
@@ -127,18 +132,20 @@ export class ClientFormComponent implements OnInit {
     if (entity === 'cellNumber') {
       this.cellNumber = this.CellNumberAndWhatsappFormatter(
         this.cellNumber,
-        this.cellNumber?.trim().length
+        this.cellNumber?.length
       );
     }
     if (entity === 'whatsapp')
       this.whatsapp = this.CellNumberAndWhatsappFormatter(
         this.whatsapp,
-        this.whatsapp?.trim().length
+        this.whatsapp?.length
       );
   }
 
   private CellNumberAndWhatsappFormatter(entity: string, length: number) {
     entity = this.IncludeDDD(entity, length);
+
+    console.log('mjhadsjkfdsj', length === 4);
 
     if (length === 5 && entity?.indexOf(' ') === 4) entity += '9';
 
@@ -170,7 +177,6 @@ export class ClientFormComponent implements OnInit {
     const controller = this.firstStageSignUpClient.get('email');
     return controller?.invalid && controller?.errors?.required;
   }
-
   get invalidEmail(): boolean {
     const controller = this.firstStageSignUpClient.get('email');
     return EmailValidators.VerifyEmail(controller);
@@ -178,7 +184,7 @@ export class ClientFormComponent implements OnInit {
 
   public get birthDateRequired() {
     const controller = this.firstStageSignUpClient.get('birthDate');
-    this.DateFormatterField();
+    // this.DateFormatterField();
     return controller?.invalid && controller?.errors?.required;
   }
   public get cpfRequired() {
@@ -188,25 +194,23 @@ export class ClientFormComponent implements OnInit {
 
   public get cpfValidated() {
     const controller = this.firstStageSignUpClient.get('CPF');
-    this.CpfFormatterField();
     return controller?.errors?.cpfInvalidated;
   }
 
   public get rgRequired() {
     const controller = this.firstStageSignUpClient.get('RG');
 
-    this.RgFormatter();
     return controller?.invalid && controller?.errors?.required;
   }
   public get cellNumberRequired() {
     const controller = this.firstStageSignUpClient.get('cellNumber');
-    this.ImplementingEntityOfNumbers('cellNumber');
+    // this.ImplementingEntityOfNumbers('cellNumber');
     return controller?.invalid && controller?.errors?.required;
   }
 
   public get whatsappRequired() {
     const controller = this.firstStageSignUpClient.get('whatsapp');
-    this.ImplementingEntityOfNumbers('whatsapp');
+    // this.ImplementingEntityOfNumbers('whatsapp');
     return controller?.invalid && controller?.errors?.required;
   }
 
